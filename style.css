@@ -1,0 +1,31 @@
+/*NEED AT LEAST THREE COLUMNS, add a couple layers REMs Em - Em is contained to the body tag, use VW - viewport width sizing, for fonts*/
+
+h1 {
+    text-align: center;
+    background: rgb(155, 144, 144);
+    color: white;
+    font-family: Tahoma;
+    font-size: 5vw;
+    /*use % for width*/
+    margin: 15 top;
+}
+
+body {
+    text-align: center
+}
+
+img {
+    margin-top: 2vw;
+    width: 300px;
+    height: 300px;
+}
+
+.pic-slots li {
+    float: left;
+    margin: 20px 20px 40px 0px;
+    margin-top: 100px;
+}
+
+.pic-slots  li:last-child {
+    margin-right: 0;
+}
