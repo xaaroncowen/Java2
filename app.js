@@ -9,7 +9,9 @@ var PicId = 0;
 var currentlyDisplayed1 = 99;
 var currentlyDisplayed2 = 99;
 var currentlyDisplayed3 = 99;
-
+var maxClicks = 25;
+var clicked = -3;
+var resultsList = document.getElementById('results_list');
 //var RandomPicNum = 0;
 
 //  crete objects for the Pics
@@ -64,8 +66,14 @@ function randomPic() {
   for (var lp = 0; lp < 20; lp++){
     if (currentlyDisplayed1 !== randomIndex && currentlyDisplayed2 !== randomIndex && currentlyDisplayed3 !== randomIndex  )  {
       imageContainer.src = Pic.allPics[randomIndex].filepath;
+      if(currentlyDisplayed1 !== 99){
+        Pic.allPics[randomIndex].totalclicks++;
+      }
       currentlyDisplayed1 = randomIndex;
-      Pic.allPics[randomIndex].totalclicks++;
+      clicked++;
+      if(clicked === maxClicks){
+        showResults();
+      }
       break;
     } else{
       randomIndex = getRandomIndex ();
@@ -77,8 +85,14 @@ function randomPic2() {
   for (var lp = 0; lp < 20; lp++){
     if (currentlyDisplayed1 !== randomIndex && currentlyDisplayed2 !== randomIndex && currentlyDisplayed3 !== randomIndex  ) {
       imageContainer2.src = Pic.allPics[randomIndex].filepath;
+      if(currentlyDisplayed2 !== 99){
+        Pic.allPics[randomIndex].totalclicks++;
+      }
       currentlyDisplayed2 = randomIndex;
-      Pic.allPics[randomIndex].totalclicks++;
+      clicked++;
+      if(clicked === maxClicks){
+        showResults();
+      }
       break;
     } else{
       randomIndex = getRandomIndex ();
@@ -91,8 +105,14 @@ function randomPic3() {
   for (var lp = 0; lp < 20; lp++){
     if (currentlyDisplayed1 !== randomIndex && currentlyDisplayed2 !== randomIndex && currentlyDisplayed3 !== randomIndex  ) {
       imageContainer3.src = Pic.allPics[randomIndex].filepath;
+      if(currentlyDisplayed3 !== 99){
+        Pic.allPics[randomIndex].totalclicks++;
+      }
       currentlyDisplayed3 = randomIndex;
-      Pic.allPics[randomIndex].totalclicks++;
+      clicked++;
+      if(clicked === maxClicks){
+        showResults();
+      }
       break;
     } else{
       randomIndex = getRandomIndex ();
@@ -100,6 +120,14 @@ function randomPic3() {
   }
 }
 
+function showResults(){
+  for (var j = 0; j < Pic.allPics.length; j++){
+    var outputText = document.createTextNode(`${Pic.allPics[j].totalclicks} Vote(s) for ${Pic.allPics[j].name}`);
+    var outputNode = document.createElement('li');
+    outputNode.appendChild(outputText);
+    resultsList.appendChild (outputNode);
+  }
+}
 
 imageContainer.addEventListener('click', randomPic);
 imageContainer2.addEventListener('click', randomPic2);
