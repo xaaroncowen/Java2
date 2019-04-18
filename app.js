@@ -10,6 +10,8 @@ var currentlyDisplayed3 = 99;
 var maxClicks = 25;
 var clicked = 0;
 var resultsList = document.getElementById('results_list');
+var chartItems = [];
+var chartData = [];
 //var RandomPicNum = 0;
 
 //  crete objects for the Pics
@@ -75,6 +77,8 @@ function clickPic(){
     imageContainer.removeEventListener('click',clickPic);
     imageContainer2.removeEventListener('click',clickPic2);
     imageContainer3.removeEventListener('click', clickPic3);
+    makeChartData();
+    makeChart();
   }
   randomIndex = getUniqueRandomIndex();
   imageContainer2.src = Pic.allPics[randomIndex].filepath;
@@ -95,6 +99,8 @@ function clickPic2(){
     imageContainer.removeEventListener('click',clickPic);
     imageContainer2.removeEventListener('click',clickPic2);
     imageContainer3.removeEventListener('click', clickPic3);
+    makeChartData();
+    makeChart();
   }
   randomIndex = getUniqueRandomIndex();
   imageContainer.src = Pic.allPics[randomIndex].filepath;
@@ -115,6 +121,8 @@ function clickPic3(){
     imageContainer.removeEventListener('click',clickPic);
     imageContainer2.removeEventListener('click',clickPic2);
     imageContainer3.removeEventListener('click', clickPic3);
+    makeChartData();
+    makeChart();
   }
   randomIndex = getUniqueRandomIndex();
   imageContainer.src = Pic.allPics[randomIndex].filepath;
@@ -167,4 +175,27 @@ function getUniqueRandomIndex(){
     }
   }
 }
+function makeChartData(){
+  for (var i = 0; i < Pic.allPics.length; i++){
+    chartItems[i] = Pic.allPics[i].name;
+    chartData[i] = Pic.allPics[i].totalclicks;
+  }
+}
 
+
+function makeChart(){
+  var canvas = document.getElementById('chart');
+  var ctx = canvas.getContext('2d');
+
+  var chart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: chartItems, //['coding', 'stuff', 'cats'],
+      datasets: [{
+        label: 'votes for my fav shit',
+        data: chartData, //[3, 10, 8],
+        backgroundColor: ['red', 'green', 'yellow', 'blue', 'cyan', 'magenta', 'pink', 'purple', 'lime', 'grey', 'black', 'white', 'violet', 'aqua', 'teal', 'silver', 'gold', 'maroon', 'brown']
+      }]
+    }
+  });
+}
